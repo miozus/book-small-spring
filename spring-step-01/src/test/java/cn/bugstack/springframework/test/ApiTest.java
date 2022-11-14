@@ -28,4 +28,17 @@ public class ApiTest {
         userService.queryUserInfo();
     }
 
+    @Test
+    public void testBeanFactoryII() {
+        BeanFactory beanFactory = new BeanFactory();
+
+        ;
+        BeanDefinition beanDefinition = new BeanDefinition(new UserService());
+        beanFactory.registerBeanDefinition("userService", beanDefinition);
+
+        UserService service = (UserService) beanFactory.getBean("userService");
+        service.insertUserInfo("20");
+
+    }
+
 }
