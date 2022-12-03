@@ -6,11 +6,7 @@ import cn.bugstack.springframework.test.bean.UserService;
 import org.junit.Test;
 
 /**
- * @description 测试类
- * @author 小傅哥，微信：fustack
- * @date 2022/2/9
- * @github https://github.com/fuzhengwei
- * @copyright 公众号：bugstack虫洞栈 | 博客：https://bugstack.cn - 沉淀、分享、成长，让自己和他人都能有所收获！
+ * 测试类
  */
 public class ApiTest {
 
@@ -32,7 +28,6 @@ public class ApiTest {
     public void testBeanFactoryII() {
         BeanFactory beanFactory = new BeanFactory();
 
-        ;
         BeanDefinition beanDefinition = new BeanDefinition(new UserService());
         beanFactory.registerBeanDefinition("userService", beanDefinition);
 

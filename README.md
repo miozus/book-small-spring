@@ -1,5 +1,18 @@
 # 《手写Spring：渐进式源码实践》 —— 书籍源码库
 
+![](https://github.com/fuzhengwei/book-small-spring/blob/master/doc/book-01.png?raw=true)
+
+本项目思路和代码来自于开源项目 [DerekYRC/mini-spring](https://github.com/DerekYRC/mini-spring)、[code4craft/tiny-spring](https://github.com/code4craft/tiny-spring) 经过本人学习、扩展、补充，并编写文章总结经验，分享给广大读者，一起学习 Spring 源码。非常感谢开源项目贡献者，读者也可以一起学习，不同视角下的学习经验。
+
+**开源项目及优秀书籍**；
+
+- [DerekYRC/mini-spring](https://github.com/DerekYRC/mini-spring)
+- [code4craft/tiny-spring](https://github.com/code4craft/tiny-spring)
+- [《Spring源码深度解析》](https://item.jd.com/12506664.html)
+- [《精通Spring 4.x —— 企业应用开发实战》](https://item.jd.com/10062905219396.html)
+
+---
+
 👨‍💻作者：小傅哥
 <br/>
 🌱微信：fustack —— 可以添加微信备注【Spring读书群📚】
@@ -90,7 +103,12 @@
 - 修改：DefaultListableBeanFactory 黑色标记
 - 说明：绿色为新增，DefaultListableBeanFactory 非新增类，为黑色。
 
-### 5. 第52页，图 5-4 感谢 反馈人：@水中捞月
+### 5. 第52页，图 5-4 感谢 反馈人：@水中捞月、@INIT
 
 - 错误：BeanFactory 多了一个 registerBeanDefinition 方法
-- 修改：删除掉 registerBeanDefinition 方法
+- 修改：删除掉 registerBeanDefinition 方法，并在 BeanFactory 标记`《接口》`
+
+### 6. 第167页，图 12-1 感谢 反馈人：@🍇葡萄
+
+- 错误：图中 ProxyFacory 单词错误
+- 修改：ProxyFacory 修改为 ProxyFactory
