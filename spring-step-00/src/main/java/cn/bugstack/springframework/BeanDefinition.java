@@ -1,18 +1,20 @@
 package cn.bugstack.springframework;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 /**
+ * 种子定义
  * Bean 对象信息定义
+ *
+ * @author miozus
+ * @date 2022/12/03
  */
+@Data
+@AllArgsConstructor
 public class BeanDefinition {
 
-    private Object bean;
+    private Class beanClass;
 
-    public BeanDefinition(Object bean) {
-        this.bean = bean;
-    }
-
-    public Object getBean() {
-        return bean;
-    }
 
 }
