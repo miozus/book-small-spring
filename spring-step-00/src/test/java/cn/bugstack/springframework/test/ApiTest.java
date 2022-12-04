@@ -1,7 +1,11 @@
 package cn.bugstack.springframework.test;
 
 import cn.bugstack.springframework.entity.BeanDefinition;
+import cn.bugstack.springframework.entity.BeanReference;
+import cn.bugstack.springframework.entity.PropertyValue;
+import cn.bugstack.springframework.entity.PropertyValues;
 import cn.bugstack.springframework.service.impl.DefaultListableBeanFactory;
+import cn.bugstack.springframework.test.bean.UserDao;
 import cn.bugstack.springframework.test.bean.UserService;
 import lombok.SneakyThrows;
 import net.sf.cglib.proxy.Enhancer;
@@ -14,6 +18,23 @@ import java.lang.reflect.Constructor;
  * 测试类
  */
 public class ApiTest {
+
+    @Test
+    public void testBeanFactoryApplyPropertyValues() {
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        beanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));
+
+        PropertyValues propertyValues = new PropertyValues();
+        propertyValues.addPropertyValue(new PropertyValue("id", "10001"));
+        propertyValues.addPropertyValue(new PropertyValue("userDao", new BeanReference("userDao")));
+
+        BeanDefinition beanDefinition = new BeanDefinition(UserService.class, propertyValues);
+        beanFactory.registerBeanDefinition("userService", beanDefinition);
+
+        UserService userService = (UserService) beanFactory.getBean("userService");
+        userService.queryUserInfo();
+
+    }
 
 
     /** 正常创建种子工厂 */
@@ -33,6 +54,7 @@ public class ApiTest {
         userServiceSingleton.queryUserInfo();
 
     }
+
     @Test
     public void testBeanFactoryNoArgsConstructor() {
 
@@ -52,7 +74,7 @@ public class ApiTest {
 
     /** 反射：Cglib库增强构造，父类和回调 */
     @Test
-    public void testCglibInstantiation(){
+    public void testCglibInstantiation() {
         Enhancer enhancer = new Enhancer();
         enhancer.setSuperclass(UserService.class);
         enhancer.setCallback(new NoOp() {

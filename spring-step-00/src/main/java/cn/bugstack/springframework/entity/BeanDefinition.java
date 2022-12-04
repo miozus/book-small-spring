@@ -1,7 +1,8 @@
 package cn.bugstack.springframework.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
+import java.util.Objects;
 
 /**
  * 种子定义
@@ -11,10 +12,20 @@ import lombok.Data;
  * @date 2022/12/03
  */
 @Data
-@AllArgsConstructor
 public class BeanDefinition {
 
     private Class beanClass;
+    private PropertyValues propertyValues;
 
 
+    public BeanDefinition(Class beanClass) {
+        this.beanClass = beanClass;
+        this.propertyValues = new PropertyValues();
+    }
+
+    public BeanDefinition(Class beanClass, PropertyValues propertyValues) {
+        this.beanClass = beanClass;
+        this.propertyValues = Objects.nonNull(propertyValues) ?
+                propertyValues : new PropertyValues();
+    }
 }

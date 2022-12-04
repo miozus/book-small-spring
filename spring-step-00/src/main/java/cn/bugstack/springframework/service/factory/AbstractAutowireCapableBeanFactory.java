@@ -1,9 +1,13 @@
 package cn.bugstack.springframework.service.factory;
 
 import cn.bugstack.springframework.entity.BeanDefinition;
+import cn.bugstack.springframework.entity.BeanReference;
+import cn.bugstack.springframework.entity.PropertyValue;
+import cn.bugstack.springframework.entity.PropertyValues;
 import cn.bugstack.springframework.exception.BeansException;
 import cn.bugstack.springframework.service.InstantiationStrategy;
 import cn.bugstack.springframework.service.impl.CglibSubclassingInstantiationStrategy;
+import cn.hutool.core.bean.BeanUtil;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,12 +36,33 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         Object bean;
         try {
             bean = createBeanInstance(beanDefinition, beanName, args);
+            // 种子填充属性
+            applyPropertyValues(beanName, bean, beanDefinition);
         } catch (Exception e) {
             throw new BeansException("种子实例化失败", e);
         }
         // 注册为单例，再返回
         registerSingleton(beanName, beanDefinition);
         return bean;
+    }
+
+    private void applyPropertyValues(String beanName, Object bean, BeanDefinition beanDefinition) {
+        try {
+            PropertyValues propertyValues = beanDefinition.getPropertyValues();
+            for (PropertyValue pv : propertyValues.getPropertyValues()) {
+                String name = pv.getName();
+                Object value = pv.getValue();
+                if (value instanceof BeanReference) {
+                    // A 依赖 B，获取 B 的实例化。
+                    // 覆写：暂时解决循环依赖，通过递归
+                    value = getBean(((BeanReference) value).getBeanName());
+                }
+                BeanUtil.setProperty(bean, name, value);
+            }
+        } catch (Exception e) {
+            throw new BeansException("注入属性时出现异常：" + beanName);
+        }
+
     }
 
     private Object createBeanInstance(BeanDefinition beanDefinition, String beanName, Object[] args) {
