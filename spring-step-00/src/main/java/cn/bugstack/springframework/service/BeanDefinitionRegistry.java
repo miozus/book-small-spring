@@ -1,7 +1,6 @@
-package cn.bugstack.springframework.support;
+package cn.bugstack.springframework.service;
 
-import cn.bugstack.springframework.BeanDefinition;
-import sun.plugin.com.BeanClass;
+import cn.bugstack.springframework.entity.BeanDefinition;
 
 /**
  * 种子定义注册表

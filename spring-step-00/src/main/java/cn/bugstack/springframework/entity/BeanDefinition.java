@@ -1,4 +1,4 @@
-package cn.bugstack.springframework;
+package cn.bugstack.springframework.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

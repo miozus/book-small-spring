@@ -1,4 +1,4 @@
-package cn.bugstack.springframework.config;
+package cn.bugstack.springframework.service;
 
 /**
  * 单例bean注册表
